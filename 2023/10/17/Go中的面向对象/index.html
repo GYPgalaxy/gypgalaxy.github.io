@@ -3,7 +3,7 @@
 <html lang="cn">
     <head>
         <meta charset="utf-8" />
-        <title>Archives | 银飒沓流星</title>
+        <title>Go中的面向对象 | 银飒沓流星</title>
         <meta name="author" content="高亚鹏" />
         <meta name="description" content="" />
         <meta name="keywords" content="golang,python,deep learning,nlp" />
@@ -36,7 +36,9 @@
 
 
 
-<script src="/js/lib/search.js"></script>
+
+
+
 
 
 
@@ -148,132 +150,177 @@
 </transition>
 
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+                <div class="article">
+    <div>
+        <h1>Go中的面向对象</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/17
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
                 
-<div id="archives">
-    
-    <input id="search-bar" class="input" placeholder="搜索" v-model="rawSearch" />
-    
-    <div id="timeline-wrap" ref="timeline">
-        
-        <div class="timeline" data-title="gitpage搭建调试">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2023/9/14</div>
-                <a href="/2023/09/14/gitpage%E6%90%AD%E5%BB%BA%E8%B0%83%E8%AF%95/">
-                    <h3>gitpage搭建调试</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                    <span class="tags">
-                        <span class="icon">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </span>
-                        
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/bug/" style="color: #00bcd4">bug</a>
-                        </span>
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/hexo/" style="color: #ffa2c4">hexo</a>
-                        </span>
-                        
-                    </span>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="timeline" data-title="redis学习笔记">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2023/10/17</div>
-                <a href="/2023/10/17/Redis%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                    <h3>Redis 学习笔记</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                    <span class="tags">
-                        <span class="icon">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </span>
-                        
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/redis/" style="color: #00bcd4">redis</a>
-                        </span>
-                        
-                    </span>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="timeline" data-title="gin框架学习">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2023/10/17</div>
-                <a href="/2023/10/17/gin%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/">
-                    <h3>gin框架学习</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                    <span class="tags">
-                        <span class="icon">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </span>
-                        
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/gin/" style="color: #ffa2c4">gin</a>
-                        </span>
-                        
-                    </span>
-                    
-                </div>
-            </div>
-        </div>
-        
-        <div class="timeline" data-title="go中的面向对象">
-            <div class="timeline-tail"></div>
-            <div class="timeline-content">
-                <div class="item-time">2023/10/17</div>
-                <a href="/2023/10/17/Go%E4%B8%AD%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
-                    <h3>Go中的面向对象</h3>
-                </a>
-                <div class="info">
-                    
-                    
-                    <span class="tags">
-                        <span class="icon">
-                            <i class="fa-solid fa-tags fa-fw"></i>
-                        </span>
-                        
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/golang/" style="color: #ff7d73">golang</a>
-                        </span>
-                        
-                        <span class="tag">
-                            
-                            <a href="/tags/OOP/" style="color: #00a596">OOP</a>
-                        </span>
-                        
-                    </span>
-                    
-                </div>
-            </div>
-        </div>
+                <a href="/tags/golang/" style="color: #00bcd4">golang</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/OOP/" style="color: #00a596">OOP</a>
+            </span>
+            
+        </span>
         
     </div>
+    
+    <div class="content" v-pre>
+        <h2 id="面向对象是什么？"><a href="#面向对象是什么？" class="headerlink" title="面向对象是什么？"></a>面向对象是什么？</h2><p>面向对象（Object-Oriented）是一种计算机编程的方法和思想，它将程序中的数据（对象）和操作（方法）组织成一个个相互关联和交互的对象。对象是现实世界中的事物或概念在计算机程序中的抽象表示。</p>
+<p><img src="https://segmentfault.com/img/remote/1460000044030068"></p>
+<h2 id="Go与面向对象"><a href="#Go与面向对象" class="headerlink" title="Go与面向对象"></a>Go与面向对象</h2><blockquote>
+<p>Go中没有面向对象这样的概念，而是通过结构体结合面向对象思想实现</p>
+</blockquote>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+// 定义一个名为Animal的结构体，就相当于面向对象中的类。
+type Animal struct &#123;
+    // 定义name、age等字段，就相当于面向对象中的属性。
+    name   string
+    age    string
+    height float64
+    weight float64
+&#125;
+
+func (u Animal) run() &#123;
+    /*
+    定义run()方法，就相当于面向对象中的方法。
+    记住：方法一定是要有一个接收者的，这里的接收者为结构体Animal，
+    其实就是将这个方法归属到结构体Animal。
+    就好比在类中定义一个方法，这个方法就是属于这个类。
+    */
+    fmt.Println(u.name, &quot;跑步的速度很快&quot;)
+&#125;
+
+func main() &#123;
+    // 使用&amp;Animal&#123;&#125;，就相当于面向对象的实例化类的过程
+    animal1 := &amp;Animal&#123;
+        name: &quot;鸵鸟&quot;,
+    &#125;
+    // 使用animal1.run()，就相当于实例化了一个对象，通过对象去调用方法。
+  animal1.run()
+  // output:鸵鸟 跑步的速度很快
+&#125;
+</code></pre>
+<p>1、结构体的<strong>字段</strong>就类似于面向对象中的<strong>属性</strong>。<br>2、结构体的<strong>方法</strong>就类似于面向对象中的<strong>方法</strong>。</p>
+<h2 id="对象继承"><a href="#对象继承" class="headerlink" title="对象继承"></a>对象继承</h2><p>通过<strong>结构体嵌套</strong>实现继承</p>
+<pre><code class="go">package main
+
+import &quot;fmt&quot;
+
+type Animal struct &#123;
+    // 父类
+    name   string
+    age    string
+    height float64
+    weight float64
+&#125;
+
+type Dog struct &#123;
+    // 嵌套父类，实现继承
+    Animal
+    // 子类的属性
+  color string
+&#125;
+
+func (u Animal) run() &#123;
+    // 父类的方法
+    fmt.Println(u.name, &quot;跑步的速度很快&quot;)
+&#125;
+
+func (d Dog) sleep() &#123;
+    // 在继承了父类属性和方法的前提下加入子类方法
+    // 子类的方法
+    fmt.Println(d.name, &quot;晚上很少睡觉&quot;)
+&#125;
+
+func main() &#123;
+    dog := &amp;Dog&#123;
+        Animal&#123;name: &quot;小狗&quot;&#125;,
+    &#125;
+    dog.sleep()
+    dog.run()
+&#125;
+</code></pre>
+<h2 id="一些知识点"><a href="#一些知识点" class="headerlink" title="一些知识点"></a>一些知识点</h2><ol>
+<li>Go语言中<code>struct</code>的成员默认是公开的，可以被外部访问，无法像类一样进行严格封装。</li>
+<li>Go语言中的<code>struct</code>不直接支持<code>多态</code>，但可以通过<code>接口</code>来实现类似的效果。</li>
+<li>可以通过定以tag将元数据暴露给外部</li>
+</ol>
+<pre><code class="go">type user struct &#123;
+  name string `json:&quot;name&quot;`
+&#125;
+</code></pre>
+<h2 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h2><p>闭包指的是一个函数和与其相关的引用环境组合而成的实体。<br>简单来说，<code>闭包=函数+外层变量的引用</code>。</p>
+<p>例1</p>
+<pre><code class="go">func adder() func(int) int &#123;
+    var x int
+    return func(y int) int &#123;
+        x += y
+        return x
+    &#125;
+&#125;
+func main() &#123;
+    var f = adder()
+    fmt.Println(f(10)) //10
+    fmt.Println(f(20)) //30
+    fmt.Println(f(30)) //60
+
+    f1 := adder()
+    fmt.Println(f1(40)) //40
+    fmt.Println(f1(50)) //90
+&#125;
+</code></pre>
+<p><strong>在f的生命周期内，变量x也一直有效</strong></p>
+<p>例2</p>
+<pre><code class="go">func calc(base int) (func(int) int, func(int) int) &#123;
+    add := func(i int) int &#123;
+        base += i
+        return base
+    &#125;
+
+    sub := func(i int) int &#123;
+        base -= i
+        return base
+    &#125;
+    return add, sub
+&#125;
+
+func main() &#123;
+    f1, f2 := calc(10)
+    fmt.Println(f1(1), f2(2)) //11 9
+    fmt.Println(f1(3), f2(4)) //12 8
+    fmt.Println(f1(5), f2(6)) //13 7
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
 </div>
 
                 <footer id="footer">
@@ -304,6 +351,12 @@
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+
+
+
+
         
     </body>
 </html>
