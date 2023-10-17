@@ -186,116 +186,8 @@
     <div class="description">
         <div class="content" v-pre>
             
-            <h1 id="Redis简介"><a href="#Redis简介" class="headerlink" title="Redis简介"></a>Redis简介</h1><p>Redis（全称为Remote Dictionary Server）是一个开源的高性能键值对存储系统，具有快速、灵活和可扩展的特性。它是一个基于内存的数据结构存储系统，可以用作数据库、缓存和消息代理。<br><strong>使用场景：</strong> Redis 最常使用的场景就是缓存了，但是 Redis 不仅仅可用作缓存，还可以使用 Redis 单线程的特性用作<strong>计数器</strong>; 使用 Redis 发布订阅的特性用作<strong>消息队列系统</strong>; 使用 Redis 有序集合的数据结构完成<strong>排行榜功能</strong>; 使用 Redis <strong>分布式锁功能</strong>；Redis 与<strong>社交网络</strong>结合；使用 Redis 布隆过滤器完成<strong>限流功能</strong>等。很多的场景都可以使用 Redis。</p>
-<h2 id="NoSql简介"><a href="#NoSql简介" class="headerlink" title="NoSql简介"></a>NoSql简介</h2><h3 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h3><p>NoSql泛指<code>非关系型数据库</code>，这些类型的数据存储不需要固定的模式，无需多余操作就可以横向扩展</p>
-<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><ul>
-<li>K-V键值对(Redis)</li>
-<li>文档型数据库(MongDB)</li>
-<li>列存储数据库</li>
-<li>图关系数据库</li>
-</ul>
-<h2 id="分布式数据库CAP原理"><a href="#分布式数据库CAP原理" class="headerlink" title="分布式数据库CAP原理"></a>分布式数据库CAP原理</h2><p>传统的关系型数据库四要素：ACID-&gt;原子性、一致性、隔离性、持久性</p>
-<h3 id="CAP是什么："><a href="#CAP是什么：" class="headerlink" title="CAP是什么："></a>CAP是什么：</h3><ul>
-<li><strong>C(Consistency) 强一致性。</strong> 一致性要求系统的数据在任何时刻都保持一致的状态。也就是说，如果一个数据副本被修改，那么所有副本都必须被相应地更新，以保持数据的一致性。在分布式系统中，一致性的实现可以通过各种机制，例如复制、同步和协调来实现。</li>
-<li><strong>A(Availability) 高可用性。</strong> 可用性要求系统在面对用户请求时能够提供服务，并且能够在合理的时间内响应这些请求。换句话说，系统不能因为某个节点或组件的故障而完全停止对外提供服务。</li>
-<li><strong>P(Partition tolerance)分区容错性。</strong> 分区容错性是指系统能够在面对网络分区（节点之间无法相互通信）的情况下继续运行。在分布式系统中，网络分区是不可避免的，因为系统的各个节点之间通过网络进行通信，而网络可能会发生延迟、丢失消息或者分区等问题。</li>
-</ul>
-<p><strong>分布式数据库CAP特性不能三个都满足，只能满足其中的两条，其中P即分区容错性必须要实现。</strong><br>传统的Oracle Mysql等满足CA<br>AP+弱一致性 :大多数网站架构的选择<br>CP :Redis Mongodb<br><strong>为什么只能满足两个</strong>：一致性要求系统的数据在任何时刻都保持一致的状态，而可用性要求系统能够在合理的时间内响应用户请求。当系统面临网络分区时，数据副本之间的同步可能会受到延迟或中断，这就导致了一致性和可用性之间的冲突。如果系统选择保证一致性，那么在网络分区期间，系统可能无法提供服务，因为需要等待分区解除以保持数据的一致性。相反，如果系统选择保证可用性，那么在网络分区期间，系统可能会继续提供服务，但数据副本之间的一致性可能会受到影响。</p>
-<h3 id="BASE是什么"><a href="#BASE是什么" class="headerlink" title="BASE是什么"></a>BASE是什么</h3><p>BASE是为了解决关系数据库强一致性引起的问题而引发的可用性降低而提出的解决方案。</p>
-<ul>
-<li><strong>BA(Basically Available)基本可用。</strong> BASE 强调系统在面对故障或分区时，仍然能够保持基本的可用性，即系统能够继续提供有限的服务，而不会完全停止响应。这与传统的强一致性模型（如 ACID）不同，它允许系统在某些情况下放宽一致性要求，以换取更高的可用性。</li>
-<li><strong>S(Soft state)软状态。</strong> 软状态指的是系统中的数据状态可以随时变化，而不需要遵循强一致性约束。在 BASE 模型中，系统允许数据处于中间状态或部分更新状态，而不要求立即达到全局一致状态。这使得系统能够更快地响应用户请求和处理大量的并发操作。</li>
-<li><strong>E(Eventually consistent)</strong> 最终一致性。最终一致性是指系统中的所有数据副本最终会达到一致的状态，但在数据更新过程中可能出现一段时间的不一致。在 BASE 模型中，系统允许数据副本在分布式环境中存在延迟和异步复制的情况，通过一定的机制最终将数据副本调整为一致状态。</li>
-</ul>
-<h1 id="Redis安装及配置"><a href="#Redis安装及配置" class="headerlink" title="Redis安装及配置"></a>Redis安装及配置</h1><h1 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h1><h2 id="1-通用"><a href="#1-通用" class="headerlink" title="1. 通用"></a>1. 通用</h2><table>
-<thead>
-<tr>
-<th align="center">序号</th>
-<th align="center">命令</th>
-<th align="center">描述</th>
-<th align="center">时间复杂度</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">1</td>
-<td align="center">keys [pattern]</td>
-<td align="center">列出系统中所有的 key</td>
-<td align="center">O(n)</td>
-</tr>
-<tr>
-<td align="center">2</td>
-<td align="center">dbsize</td>
-<td align="center">Redis 系统所有 key 的个数</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">3</td>
-<td align="center">exists key</td>
-<td align="center">Redis 系统是否存在该 key，存在返回1，否则返回0</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">4</td>
-<td align="center">del key…</td>
-<td align="center">删除 Redis 中的 key，删除不存在的key返回0，否则返回key个数</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">5</td>
-<td align="center">expire key seconds</td>
-<td align="center">设置 key 的过期时间，单位是秒，pexpire 单位是毫秒</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">6</td>
-<td align="center">ttl key</td>
-<td align="center">显示 key 剩余的过期时间，返回 -1 表示没有设置过期时间，-2表示key已删除，pttl，单位是毫秒</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">7</td>
-<td align="center">persist key</td>
-<td align="center">去掉 key 的过期时间</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">8</td>
-<td align="center">type key</td>
-<td align="center">查看 key 的数据类型</td>
-<td align="center">O(1)</td>
-</tr>
-<tr>
-<td align="center">9</td>
-<td align="center">randomkey</td>
-<td align="center">随机返回系统中存在的key</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">10</td>
-<td align="center">rename key1 newKey</td>
-<td align="center">给 key 重命名</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">11</td>
-<td align="center">renamenx key1 newKey</td>
-<td align="center">给 key 重命名，如果newKey已存在则重命名失败，返回0，否则返回1</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">12</td>
-<td align="center">move key DBNO</td>
-<td align="center">将指定的key移动到指定的数据库，redis默认16个库，默认使用 0号库</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">13</td>
-<td align="center">select DBNO</td>
-<td align="center">使用 redis 的某个数据库，类似于 mysql 的 use dbname</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<h2 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h2>
+            <p>记录Redis学习笔记，包含理论+实战，以及面经相关</p>
+
             
         </div>
     </div>
@@ -309,7 +201,7 @@
         
         <span class="tag">
             
-            <a href="/tags/redis/" style="color: #ff7d73">redis</a>
+            <a href="/tags/redis/" style="color: #00a596">redis</a>
         </span>
         
     </div>
@@ -381,12 +273,12 @@
         
         <span class="tag">
             
-            <a href="/tags/bug/" style="color: #03a9f4">bug</a>
+            <a href="/tags/bug/" style="color: #00a596">bug</a>
         </span>
         
         <span class="tag">
             
-            <a href="/tags/hexo/" style="color: #ffa2c4">hexo</a>
+            <a href="/tags/hexo/" style="color: #ff7d73">hexo</a>
         </span>
         
     </div>
