@@ -3,7 +3,7 @@
 <html lang="cn">
     <head>
         <meta charset="utf-8" />
-        <title>Tags: bug | 银飒沓流星</title>
+        <title>go对象池理论及使用 | 银飒沓流星</title>
         <meta name="author" content="高亚鹏" />
         <meta name="description" content="" />
         <meta name="keywords" content="golang,python,deep learning,nlp" />
@@ -33,6 +33,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -146,134 +150,79 @@
 </transition>
 
             <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-                <div id="archives">
-    
-    <div class="categories-tags">
-        
-        
-        
-        <span>
-            <a href="/tags/bug/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                bug
-            </a>
+                <div class="article">
+    <div>
+        <h1>go对象池理论及使用</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2023/10/17
         </span>
         
         
-        
-        
-        
-        <span>
-            <a href="/tags/hexo/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                hexo
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/golang/" style="color: #00a596">golang</a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%AF%B9%E8%B1%A1%E6%B1%A0/" style="color: #ffa2c4">对象池</a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/redis/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                redis
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/gin/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                gin
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/golang/" style="background: #ffa2c4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                golang
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/OOP/" style="background: #00a596">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                OOP
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E9%97%AD%E5%8C%85/" style="background: #ff7d73">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                闭包
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%AF%B9%E8%B1%A1%E6%B1%A0/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                对象池
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2023/9/14</div>
-            <a href="/2023/09/14/gitpage%E6%90%AD%E5%BB%BA%E8%B0%83%E8%AF%95/">
-                <h3>gitpage搭建调试</h3>
-            </a>
-            <div class="info">
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/bug/" style="color: #00bcd4">bug</a>
-                    </span>
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/hexo/" style="color: #ffa2c4">hexo</a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <h2 id="什么是对象池"><a href="#什么是对象池" class="headerlink" title="什么是对象池"></a>什么是对象池</h2><p>保存和复用临时对象，减少内存分配，降低 GC 压力。<br><code>sync.Pool</code> 用于存储那些被分配了但是没有被使用，而未来可能会使用的值。这样就可以不用再次经过内存分配，可直接复用已有对象，减轻 GC 的压力，从而提升系统的性能。</p>
+<p>举例：</p>
+<pre><code class="go">type Student struct &#123;
+    Name   string
+    Age    int32
+    Remark [1024]byte
+&#125;
+
+var buf, _ = json.Marshal(Student&#123;Name: &quot;Geektutu&quot;, Age: 25&#125;)
+
+func unmarsh() &#123;
+    stu := &amp;Student&#123;&#125;
+    json.Unmarshal(buf, stu)
+&#125;
+</code></pre>
+<p>json 的反序列化在文本解析和网络通信过程中非常常见，当程序并发度非常高的情况下，短时间内需要创建大量的临时对象。而这些对象是都是分配在堆上的，会给 GC 造成很大压力，严重影响程序的性能。</p>
+<h2 id="使用sync-pool"><a href="#使用sync-pool" class="headerlink" title="使用sync.pool"></a>使用sync.pool</h2><h3 id="1-声明对象池"><a href="#1-声明对象池" class="headerlink" title="1. 声明对象池"></a>1. 声明对象池</h3><p>实现<code>New</code>函数即可</p>
+<pre><code class="go">var studentPool = sync.Pool&#123;
+    New: func() interface&#123;&#125; &#123; 
+        return new(Student) 
+    &#125;,
+&#125;
+</code></pre>
+<h3 id="2-Get-Put"><a href="#2-Get-Put" class="headerlink" title="2. Get&amp;Put"></a>2. Get&amp;Put</h3><pre><code class="go">stu := studentPool.Get().(*Student)
+json.Unmarshal(buf, stu)
+studentPool.Put(stu)
+</code></pre>
+<ul>
+<li><code>Get()</code> 用于从对象池中获取对象，因为返回值是 <code>interface&#123;&#125;</code>，因此需要类型转换。</li>
+<li><code>Put()</code> 则是在对象使用完毕后，返回对象池。</li>
+</ul>
+
     </div>
+    
+    
+    
+    
+    
+    
     
 </div>
 
@@ -305,6 +254,12 @@
             
         </div>
         <script src="/js/main.js"></script>
+        
+        
+
+
+
+
         
     </body>
 </html>
