@@ -176,7 +176,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/redis/" style="color: #00bcd4">redis</a>
+                <a href="/tags/redis/" style="color: #00a596">redis</a>
             </span>
             
         </span>
@@ -184,15 +184,15 @@
     </div>
     
     <div class="content" v-pre>
-        <h3 id="1-【已解决】Could-not-create-server-TCP-listening-socket-127-0-0-1-6379-bind-操作成功完成。"><a href="#1-【已解决】Could-not-create-server-TCP-listening-socket-127-0-0-1-6379-bind-操作成功完成。" class="headerlink" title="1. 【已解决】Could not create server TCP listening socket 127.0.0.1:6379: bind: 操作成功完成。"></a>1. 【已解决】Could not create server TCP listening socket 127.0.0.1:6379: bind: 操作成功完成。</h3><p><img src="/./img/1765902-20220308104155099-1935037969.png"></p>
+        <h3 id="1-【已解决】Could-not-create-server-TCP-listening-socket-127-0-0-1-6379-bind-操作成功完成。"><a href="#1-【已解决】Could-not-create-server-TCP-listening-socket-127-0-0-1-6379-bind-操作成功完成。" class="headerlink" title="1. 【已解决】Could not create server TCP listening socket 127.0.0.1:6379: bind: 操作成功完成。"></a>1. 【已解决】Could not create server TCP listening socket 127.0.0.1:6379: bind: 操作成功完成。</h3><p><img src="https://github.com/GYPgalaxy/gypgalaxy.github.io/blob/main/images/1765902-20220308104155099-1935037969.png"></p>
 <p>原因：<br>6379端口已绑定。应该是因为上次服务没有关闭</p>
 <p>解决方法：<br>①依次输入命令：</p>
 <ul>
 <li>redis-cli.exe（启动redis客户端，连接本机6379端口（127.0.0.1）并启动redis服务）</li>
 <li>shutdown</li>
-<li>exit<br><img src="/./img/1765902-20220308104102885-812179561.png"></li>
+<li>exit<br><img src="https://github.com/GYPgalaxy/gypgalaxy.github.io/blob/main/images/1765902-20220308104102885-812179561.png"></li>
 </ul>
-<p>②启动redis服务：<code>redis-server.exe redis.windows.conf</code><br><img src="/./img/1765902-20220308104123477-1306973240.png"></p>
+<p>②启动redis服务：<code>redis-server.exe redis.windows.conf</code><br><img src="https://github.com/GYPgalaxy/gypgalaxy.github.io/blob/main/images/1765902-20220308104123477-1306973240.png"></p>
 
     </div>
     
